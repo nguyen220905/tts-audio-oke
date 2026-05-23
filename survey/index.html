@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VITS-VI Vietnamese TTS Naturalness Survey</title>
+  <!-- Modern clean font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+      --radius: 12px;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .content {
+      padding: 32px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Landing Screen Styles */
+    .instruction-text {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.975rem;
+    }
+
+    .instruction-text p {
+      margin-bottom: 12px;
+    }
+
+    .consent-group {
+      background-color: var(--primary-light);
+      border: 1px solid #dbeafe;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .consent-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: var(--primary);
+    }
+
+    .consent-checkbox {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .consent-checkbox:last-child {
+      margin-bottom: 0;
+    }
+
+    .consent-checkbox input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      margin-right: 12px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .consent-label {
+      font-size: 0.925rem;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Rating Screen Styles */
+    .progress-container {
+      margin-bottom: 24px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .progress-bar-bg {
+      height: 6px;
+      background-color: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .audio-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px;
+      background-color: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+    }
+
+    audio {
+      width: 100%;
+      outline: none;
+    }
+
+    .btn-replay {
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-replay:hover {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+    }
+
+    .rating-section {
+      margin-bottom: 24px;
+    }
+
+    .rating-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .rating-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rating-option {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+      min-height: 48px; /* Touch target */
+    }
+
+    .rating-option:hover {
+      background-color: var(--bg-color);
+      border-color: #cbd5e1;
+    }
+
+    .rating-option.selected {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    .rating-option input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .rating-label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+    }
+
+    .label-en {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .label-vi {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .comment-section {
+      margin-bottom: 28px;
+    }
+
+    .comment-section label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .comment-section textarea {
+      width: 100%;
+      height: 60px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      resize: none;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .comment-section textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .comment-char-count {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 14px 24px;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+    }
+
+    .btn:disabled {
+      background-color: #cbd5e1;
+      color: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Dialog overlay for sessionStorage resume prompt */
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(15, 23, 42, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .dialog-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .dialog-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .dialog-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .dialog-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dialog-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+    }
+
+    .dialog-btn-primary {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+
+    .dialog-btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .dialog-btn-secondary {
+      background-color: white;
+      color: var(--text-main);
+    }
+
+    .dialog-btn-secondary:hover {
+      background-color: var(--bg-color);
+    }
+
+    /* Submission Loader & Completion screens */
+    .state-screen {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--primary-light);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .state-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .state-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .icon-success {
+      font-size: 3rem;
+      color: var(--success);
+      margin-bottom: 20px;
+    }
+
+    .icon-error {
+      font-size: 3rem;
+      color: #ef4444;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Resume dialog if session saved -->
+  <div id="resume-dialog" class="dialog-overlay hidden">
+    <div class="dialog-card">
+      <div class="dialog-title">Tiếp tục khảo sát?</div>
+      <div class="dialog-desc" id="resume-desc">Chúng tôi thấy bạn đang làm dở khảo sát. Bạn có muốn tiếp tục từ câu X không?</div>
+      <div class="dialog-actions">
+        <button class="dialog-btn dialog-btn-secondary" onclick="surveyManager.rejectResume()">Làm lại từ đầu</button>
+        <button class="dialog-btn dialog-btn-primary" onclick="surveyManager.acceptResume()">Tiếp tục</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h1 id="survey-title">VITS-VI Vietnamese TTS Naturalness Survey</h1>
+    </div>
+
+    <!-- 1. Landing Screen -->
+    <div id="screen-landing" class="content">
+      <div class="instruction-text">
+        <p>Cảm ơn bạn đã đồng ý tham gia khảo sát chất lượng giọng nói tổng hợp cho dự án nghiên cứu <strong>VITS-VI</strong>.</p>
+        <p><strong>Nhiệm vụ của bạn:</strong> Bạn sẽ nghe các đoạn âm thanh tiếng Việt ngắn (khoảng 82 câu tất cả) và đánh giá mức độ tự nhiên của giọng đọc theo thang điểm từ 1 đến 5 (từ Rất tệ đến Rất tốt).</p>
+        <p><strong>Thời gian thực hiện:</strong> Khoảng 15-20 phút. Để có kết quả chính xác nhất, vui lòng sử dụng <strong>tai nghe (hoặc loa chất lượng tốt)</strong> và thực hiện trong <strong>không gian yên tĩnh</strong>.</p>
+        <p>Thông tin của bạn sẽ được ẩn danh hoàn toàn và chỉ phục vụ cho mục đích nghiên cứu học thuật.</p>
+      </div>
+
+      <div class="consent-group">
+        <div class="consent-title">Yêu cầu xác nhận trước khi bắt đầu:</div>
+        <label class="consent-checkbox">
+          <input type="checkbox" id="consent-native" onchange="surveyManager.checkConsent()">
+          <span class="consent-label">Tôi là người Việt bản ngữ (Native Vietnamese speaker).</span>
+        </label>
+        <label class="consent-checkbox">
+          <input type="checkbox" id="consent-headphone" onchange="surveyManager.checkConsent()">
+          <span class="consent-label">Tôi đang sử dụng tai nghe hoặc loa chất lượng tốt.</span>
+        </label>
+        <label class="consent-checkbox">
+          <input type="checkbox" id="consent-quiet" onchange="surveyManager.checkConsent()">
+          <span class="consent-label">Tôi đang ở trong môi trường yên tĩnh.</span>
+        </label>
+      </div>
+
+      <button id="btn-start" class="btn" disabled onclick="surveyManager.startSurvey()">
+        Bắt đầu khảo sát
+      </button>
+    </div>
+
+    <!-- 2. Rating Screen -->
+    <div id="screen-rating" class="content hidden">
+      <div class="progress-container">
+        <div class="progress-text">
+          <span id="progress-question-num">Câu 1 / --</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progress-bar-fill" class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="audio-section">
+        <audio id="survey-audio" preload="auto" onplay="surveyManager.onAudioPlay()"></audio>
+        <button class="btn-replay" onclick="surveyManager.replayAudio()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Nghe lại (Replay)
+        </button>
+      </div>
+
+      <div class="rating-section">
+        <div class="rating-title">Đánh giá độ tự nhiên (Naturalness rating):</div>
+        <div class="rating-options">
+          <label class="rating-option" onclick="surveyManager.selectRating(1)">
+            <input type="radio" name="mos-rating" id="rate-1" value="1">
+            <span class="rating-label">
+              <span class="label-en">1 — Bad</span>
+              <span class="label-vi">Rất tệ (Giọng máy hoàn toàn, rất khó chịu)</span>
+            </span>
+          </label>
+          <label class="rating-option" onclick="surveyManager.selectRating(2)">
+            <input type="radio" name="mos-rating" id="rate-2" value="2">
+            <span class="rating-label">
+              <span class="label-en">2 — Poor</span>
+              <span class="label-vi">Tệ (Nhiều lỗi ngắt quãng, thiếu tự nhiên)</span>
+            </span>
+          </label>
+          <label class="rating-option" onclick="surveyManager.selectRating(3)">
+            <input type="radio" name="mos-rating" id="rate-3" value="3">
+            <span class="rating-label">
+              <span class="label-en">3 — Fair</span>
+              <span class="label-vi">Tạm được (Có chút gượng gạo nhưng nghe rõ được)</span>
+            </span>
+          </label>
+          <label class="rating-option" onclick="surveyManager.selectRating(4)">
+            <input type="radio" name="mos-rating" id="rate-4" value="4">
+            <span class="rating-label">
+              <span class="label-en">4 — Good</span>
+              <span class="label-vi">Tốt (Khá tự nhiên, gần giống người nói)</span>
+            </span>
+          </label>
+          <label class="rating-option" onclick="surveyManager.selectRating(5)">
+            <input type="radio" name="mos-rating" id="rate-5" value="5">
+            <span class="rating-label">
+              <span class="label-en">5 — Excellent</span>
+              <span class="label-vi">Rất tốt (Hoàn toàn tự nhiên như người bản xứ nói)</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="comment-section">
+        <label for="stim-comment">Ý kiến đóng góp khác cho câu này (Tùy chọn, tối đa 200 ký tự):</label>
+        <textarea id="stim-comment" placeholder="Ví dụ: Âm thanh hơi rè, ngắt nghỉ sai từ..." maxlength="200" oninput="surveyManager.updateCommentCount()"></textarea>
+        <div class="comment-char-count" id="comment-char-count">0 / 200</div>
+      </div>
+
+      <button id="btn-next" class="btn" disabled onclick="surveyManager.nextQuestion()">
+        Câu tiếp theo
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+
+    <!-- 3. Loading/Submitting Screen -->
+    <div id="screen-submitting" class="content state-screen hidden">
+      <div class="spinner"></div>
+      <div class="state-title">Đang gửi kết quả...</div>
+      <div class="state-desc">Vui lòng chờ trong giây lát, kết quả đang được ghi nhận vào hệ thống.</div>
+    </div>
+
+    <!-- 4. Success Screen -->
+    <div id="screen-success" class="content state-screen hidden">
+      <div class="icon-success">✓</div>
+      <div class="state-title">Cảm ơn bạn!</div>
+      <div class="state-desc">Khảo sát hoàn tất. Ý kiến của bạn vô cùng giá trị đóng góp cho nghiên cứu của chúng tôi. Bạn có thể đóng tab trình duyệt này.</div>
+    </div>
+
+    <!-- 5. Error Screen -->
+    <div id="screen-error" class="content state-screen hidden">
+      <div class="icon-error">✗</div>
+      <div class="state-title">Có lỗi xảy ra</div>
+      <div class="state-desc" id="error-desc">Không thể tải thông tin khảo sát hoặc có lỗi kết nối mạng. Vui lòng thử lại.</div>
+      <button class="btn" onclick="location.reload()">Tải lại trang (Reload)</button>
+    </div>
+
+    <!-- 6. Submit Error Screen (Offers Retry) -->
+    <div id="screen-submit-error" class="content state-screen hidden">
+      <div class="icon-error">✗</div>
+      <div class="state-title">Lỗi gửi dữ liệu</div>
+      <div class="state-desc">Kết nối internet gặp sự cố hoặc hệ thống quá tải. Kết quả của bạn vẫn được lưu an toàn. Vui lòng thử gửi lại.</div>
+      <button class="btn" onclick="surveyManager.submitResults()">
+        Thử lại (Retry Submission)
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Constants
+    const APPS_SCRIPT_URL = "__APPS_SCRIPT_URL__";
+    const SESSION_KEY = "mos_survey_state";
+
+    // Shuffler
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    class SurveyManager {
+      constructor() {
+        this.manifest = null;
+        this.stimuli = [];
+        this.currentIndex = 0;
+        this.ratings = []; // elements: { stim_id, rating, played_count, time_to_rate_ms, comment }
+        
+        // Listener metadata
+        this.listenerId = "";
+        this.startedAt = "";
+        this.userAgent = navigator.userAgent;
+
+        // Current question state
+        this.currentStimId = "";
+        this.playCount = 0;
+        this.hasPlayed = false;
+        this.currentRating = null;
+        this.questionStartTime = 0;
+      }
+
+      async init() {
+        try {
+          const response = await fetch('manifest.json');
+          if (!response.ok) throw new Error("Failed to fetch manifest.json");
+          this.manifest = await response.json();
+          
+          // Check for existing session
+          const savedState = sessionStorage.getItem(SESSION_KEY);
+          if (savedState) {
+            this.tempSavedState = JSON.parse(savedState);
+            document.getElementById('resume-desc').innerText = `Chúng tôi nhận thấy bạn đang làm dở khảo sát ở câu ${this.tempSavedState.currentIndex + 1}. Bạn có muốn tiếp tục từ đây không?`;
+            document.getElementById('resume-dialog').classList.remove('hidden');
+          }
+        } catch (err) {
+          console.error("Initialization error:", err);
+          this.showScreen('error');
+          document.getElementById('error-desc').innerText = "Không thể tải cấu hình khảo sát (manifest.json). Vui lòng tải lại trang hoặc kiểm tra kết nối mạng.";
+        }
+      }
+
+      checkConsent() {
+        const c1 = document.getElementById('consent-native').checked;
+        const c2 = document.getElementById('consent-headphone').checked;
+        const c3 = document.getElementById('consent-quiet').checked;
+        document.getElementById('btn-start').disabled = !(c1 && c2 && c3);
+      }
+
+      acceptResume() {
+        document.getElementById('resume-dialog').classList.add('hidden');
+        if (this.tempSavedState) {
+          this.listenerId = this.tempSavedState.listenerId;
+          this.startedAt = this.tempSavedState.startedAt;
+          this.stimuli = this.tempSavedState.stimuli;
+          this.ratings = this.tempSavedState.ratings;
+          this.currentIndex = this.tempSavedState.currentIndex;
+          this.tempSavedState = null;
+          this.showScreen('rating');
+          this.loadQuestion();
+        }
+      }
+
+      rejectResume() {
+        document.getElementById('resume-dialog').classList.add('hidden');
+        sessionStorage.removeItem(SESSION_KEY);
+        this.tempSavedState = null;
+      }
+
+      startSurvey() {
+        // Generate metadata
+        this.listenerId = this.generateUUID();
+        this.startedAt = new Date().toISOString();
+        
+        // Shuffle stimuli list
+        this.stimuli = shuffleArray([...this.manifest.stimuli]);
+        this.currentIndex = 0;
+        this.ratings = [];
+
+        this.saveState();
+        this.showScreen('rating');
+        this.loadQuestion();
+      }
+
+      generateUUID() {
+        // Simple fallback UUID generator
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
+
+      saveState() {
+        const state = {
+          listenerId: this.listenerId,
+          startedAt: this.startedAt,
+          stimuli: this.stimuli,
+          ratings: this.ratings,
+          currentIndex: this.currentIndex
+        };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
+      }
+
+      showScreen(screenId) {
+        // Hide all screens
+        document.getElementById('screen-landing').classList.add('hidden');
+        document.getElementById('screen-rating').classList.add('hidden');
+        document.getElementById('screen-submitting').classList.add('hidden');
+        document.getElementById('screen-success').classList.add('hidden');
+        document.getElementById('screen-error').classList.add('hidden');
+        document.getElementById('screen-submit-error').classList.add('hidden');
+
+        // Show targets
+        document.getElementById(`screen-${screenId}`).classList.remove('hidden');
+      }
+
+      loadQuestion() {
+        const stim = this.stimuli[this.currentIndex];
+        this.currentStimId = stim.id;
+        this.playCount = 0;
+        this.hasPlayed = false;
+        this.currentRating = null;
+        this.questionStartTime = Date.now();
+
+        // Update progress UI
+        const total = this.stimuli.length;
+        document.getElementById('progress-question-num').innerText = `Câu ${this.currentIndex + 1} / ${total}`;
+        const pct = Math.round((this.currentIndex / total) * 100);
+        document.getElementById('progress-percent').innerText = `${pct}%`;
+        document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+
+        // Update audio source
+        const audio = document.getElementById('survey-audio');
+        audio.src = stim.audio;
+        audio.load();
+
+        // Reset radio buttons
+        const options = document.querySelectorAll('.rating-option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        const radios = document.getElementsByName('mos-rating');
+        radios.forEach(radio => {
+          radio.checked = false;
+        });
+
+        // Reset comment textarea
+        document.getElementById('stim-comment').value = '';
+        this.updateCommentCount();
+
+        this.validateNextButton();
+      }
+
+      onAudioPlay() {
+        if (!this.hasPlayed) {
+          this.hasPlayed = true;
+        }
+        this.playCount++;
+        this.validateNextButton();
+      }
+
+      replayAudio() {
+        const audio = document.getElementById('survey-audio');
+        audio.currentTime = 0;
+        audio.play();
+      }
+
+      selectRating(val) {
+        this.currentRating = val;
+        const radios = document.getElementsByName('mos-rating');
+        radios.forEach(r => {
+          if (parseInt(r.value) === val) {
+            r.checked = true;
+          }
+        });
+
+        // Update selected style
+        const options = document.querySelectorAll('.rating-option');
+        options.forEach((opt, idx) => {
+          if (idx + 1 === val) {
+            opt.classList.add('selected');
+          } else {
+            opt.classList.remove('selected');
+          }
+        });
+
+        this.validateNextButton();
+      }
+
+      validateNextButton() {
+        const audio = document.getElementById('survey-audio');
+        
+        // Confirm played state. Standard browsers support played.length.
+        // We also track hasPlayed boolean as robust fallback.
+        const playedAtLeastOnce = (audio.played && audio.played.length > 0) || this.hasPlayed;
+        const ratingSelected = this.currentRating !== null;
+
+        document.getElementById('btn-next').disabled = !(playedAtLeastOnce && ratingSelected);
+      }
+
+      updateCommentCount() {
+        const text = document.getElementById('stim-comment').value;
+        document.getElementById('comment-char-count').innerText = `${text.length} / 200`;
+      }
+
+      nextQuestion() {
+        // Save current rating
+        const timeToRate = Date.now() - this.questionStartTime;
+        const comment = document.getElementById('stim-comment').value.trim();
+
+        this.ratings.push({
+          stim_id: this.currentStimId,
+          rating: this.currentRating,
+          played_count: this.playCount,
+          time_to_rate_ms: timeToRate,
+          comment: comment
+        });
+
+        this.currentIndex++;
+        this.saveState();
+
+        if (this.currentIndex < this.stimuli.length) {
+          this.loadQuestion();
+        } else {
+          // Finished all questions!
+          this.submitResults();
+        }
+      }
+
+      async submitResults() {
+        this.showScreen('submitting');
+
+        const payload = {
+          listener_id: this.listenerId,
+          started_at: this.startedAt,
+          completed_at: new Date().toISOString(),
+          user_agent: this.userAgent,
+          ratings: this.ratings
+        };
+
+        try {
+          // Send request. Use no-cors if required by Apps Script redirection, 
+          // but Apps Script returns JSON. If we execute Apps Script as Web App,
+          // standard POST fetch will follow redirects if Apps Script returns ContentService.
+          const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8', // Apps Script does not always support OPTIONS preflight for JSON, text/plain avoids it
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const resText = await response.text();
+          let resData;
+          try {
+            resData = JSON.parse(resText);
+          } catch(e) {
+            resData = { status: "unknown", raw: resText };
+          }
+
+          if (response.ok && (resData.status === "ok" || response.status === 200)) {
+            // Success! Clear session storage
+            sessionStorage.removeItem(SESSION_KEY);
+            this.showScreen('success');
+          } else {
+            console.error("Submission failed:", resData);
+            this.showScreen('submit-error');
+          }
+        } catch (err) {
+          console.error("Fetch submission error:", err);
+          this.showScreen('submit-error');
+        }
+      }
+    }
+
+    // Instantiate and initialize
+    const surveyManager = new SurveyManager();
+    window.onload = () => {
+      surveyManager.init();
+    };
+  </script>
+</body>
+</html>

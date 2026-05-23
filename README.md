@@ -22,6 +22,21 @@ Below are the 5 selected sentences from `test_list.tsv` (Speaker_10, FOSD datase
 * **VITS-VI (Our System)**: Vietnamese VITS TTS model adapted and trained on a subset of FOSD Speaker_10 containing 2,685 utterances (~4 hours of clean speech).
 * **F5-TTS-Vi**: The baseline F5-TTS-Vietnamese-ViVoice model (trained on approximately 1,000 hours of multi-speaker Vietnamese speech, fine-tuned/zero-shot inferred for this speaker context).
 
+## VITS-VI v2 Samples
+
+We have also generated speech samples using the fine-tuned **VITS-VI v2** model (`checkpoint_final.pth` at step 115,000). You can find the audio files and transcripts in the [output_v2/](output_v2) directory.
+
+See [output_v2/README.md](output_v2/README.md) for more details.
+
+## MOS Survey
+
+A blind, randomized Mean Opinion Score survey is available at:
+**https://nguyen220905.github.io/tts-audio-oke/survey/**
+
+If you are a native Vietnamese speaker, please consider participating (takes ~15-20 minutes, requires headphones). Results contribute to academic research on Vietnamese text-to-speech.
+
+System details and survey methodology described in the main paper: [nguyen220905/project_tts](https://github.com/nguyen220905/project_tts).
+
 ## Links & Licensing
 
 * **Main Repository**: [nguyen220905/project_tts](https://github.com/nguyen220905/project_tts)
