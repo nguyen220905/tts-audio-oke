@@ -14,21 +14,18 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     const sheet = SpreadsheetApp.getActive().getSheetByName('responses');
 
-    // Ghi mỗi lượt đánh giá (listener, stimulus) thành 1 dòng trong sheet
-    data.ratings.forEach(r => {
-      sheet.appendRow([
-        new Date(),
-        data.listener_id,
-        data.started_at,
-        data.completed_at,
-        r.stim_id,
-        r.rating,
-        r.played_count,
-        r.time_to_rate_ms,
-        r.comment || '',
-        data.user_agent
-      ]);
-    });
+    // Ghi lượt đánh giá đơn lẻ (từng câu) thành 1 dòng trong sheet
+    sheet.appendRow([
+      new Date(),
+      data.listener_id,
+      data.stim_id,
+      data.rating,
+      data.played_count,
+      data.time_to_rate_ms,
+      data.comment || '',
+      data.is_partial,
+      data.user_agent
+    ]);
 
     return ContentService
       .createTextOutput(JSON.stringify({status: "ok"}))
@@ -44,10 +41,10 @@ function doPost(e) {
 function setupSheet() {
   const sheet = SpreadsheetApp.getActive().getActiveSheet();
   sheet.setName('responses');
-  sheet.getRange(1, 1, 1, 10).setValues([[
-    'received_at', 'listener_id', 'started_at', 'completed_at',
-    'stim_id', 'rating', 'played_count', 'time_to_rate_ms',
-    'comment', 'user_agent'
+  sheet.getRange(1, 1, 1, 9).setValues([[
+    'received_at', 'listener_id', 'stim_id', 'rating', 
+    'played_count', 'time_to_rate_ms', 'comment', 
+    'is_partial', 'user_agent'
   ]]);
   sheet.setFrozenRows(1);
 }
@@ -66,7 +63,7 @@ function setupSheet() {
    - Chọn tài khoản Google của bạn.
    - Nhấn chọn **Advanced** (Nâng cao) ở góc dưới → Click link **"Go to MOS Survey Backend (unsafe)"** (Đi tới MOS Survey Backend - không an toàn).
    - Click **Allow** (Cho phép) để cấp quyền truy cập bảng tính.
-   - Kiểm tra tab Google Sheet lúc nãy, bạn sẽ thấy sheet được đổi tên thành `"responses"` và dòng đầu tiên xuất hiện 10 cột tiêu đề được in đậm, đóng băng (frozen row).
+   - Kiểm tra tab Google Sheet lúc nãy, bạn sẽ thấy sheet được đổi tên thành `"responses"` và dòng đầu tiên xuất hiện 9 cột tiêu đề được in đậm, đóng băng (frozen row).
 6. Quay lại trang Apps Script → Click nút **Deploy** (Triển khai) ở góc trên bên phải → Chọn **New deployment** (Triển khai mới).
    - Click biểu tượng bánh răng ở cạnh mục "Select type" → Chọn **Web app**.
    - Mục **Description**: Ghi `"MOS Survey v1"`.

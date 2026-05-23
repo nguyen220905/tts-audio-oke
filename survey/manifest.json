@@ -10,332 +10,172 @@
   "scale_aspect": "naturalness",
   "stimuli": [
     {
-      "id": "stim_e2bdaedd",
-      "audio": "audio/stim_e2bdaedd.wav"
+      "id": "stim_106e24eb",
+      "audio": "audio/stim_106e24eb.wav"
     },
     {
-      "id": "stim_88086791",
-      "audio": "audio/stim_88086791.wav"
+      "id": "stim_10df8f11",
+      "audio": "audio/stim_10df8f11.wav"
     },
     {
-      "id": "stim_f57a287e",
-      "audio": "audio/stim_f57a287e.wav"
+      "id": "stim_bf1dc107",
+      "audio": "audio/stim_bf1dc107.wav"
     },
     {
-      "id": "stim_4585a60b",
-      "audio": "audio/stim_4585a60b.wav"
+      "id": "stim_558172c9",
+      "audio": "audio/stim_558172c9.wav"
     },
     {
-      "id": "stim_c7e58dfd",
-      "audio": "audio/stim_c7e58dfd.wav"
+      "id": "stim_461f319d",
+      "audio": "audio/stim_461f319d.wav"
     },
     {
-      "id": "stim_7a44b8f6",
-      "audio": "audio/stim_7a44b8f6.wav"
+      "id": "stim_948b9571",
+      "audio": "audio/stim_948b9571.wav"
     },
     {
-      "id": "stim_395bc960",
-      "audio": "audio/stim_395bc960.wav"
+      "id": "stim_62e0730c",
+      "audio": "audio/stim_62e0730c.wav"
     },
     {
-      "id": "stim_ba9b7784",
-      "audio": "audio/stim_ba9b7784.wav"
+      "id": "stim_5be14f92",
+      "audio": "audio/stim_5be14f92.wav"
     },
     {
-      "id": "stim_83542a38",
-      "audio": "audio/stim_83542a38.wav"
+      "id": "stim_9233053f",
+      "audio": "audio/stim_9233053f.wav"
     },
     {
-      "id": "stim_d9e1832a",
-      "audio": "audio/stim_d9e1832a.wav"
+      "id": "stim_2b161a1d",
+      "audio": "audio/stim_2b161a1d.wav"
     },
     {
-      "id": "stim_20ae0d3c",
-      "audio": "audio/stim_20ae0d3c.wav"
+      "id": "stim_b0f007b3",
+      "audio": "audio/stim_b0f007b3.wav"
     },
     {
-      "id": "stim_9026108d",
-      "audio": "audio/stim_9026108d.wav"
+      "id": "stim_f4e85893",
+      "audio": "audio/stim_f4e85893.wav"
     },
     {
-      "id": "stim_98326c81",
-      "audio": "audio/stim_98326c81.wav"
+      "id": "stim_120e8f31",
+      "audio": "audio/stim_120e8f31.wav"
     },
     {
-      "id": "stim_c3173d8d",
-      "audio": "audio/stim_c3173d8d.wav"
+      "id": "stim_cbbf4a20",
+      "audio": "audio/stim_cbbf4a20.wav"
     },
     {
-      "id": "stim_65d669f1",
-      "audio": "audio/stim_65d669f1.wav"
+      "id": "stim_32e13736",
+      "audio": "audio/stim_32e13736.wav"
     },
     {
-      "id": "stim_5f84d351",
-      "audio": "audio/stim_5f84d351.wav"
+      "id": "stim_816edfc2",
+      "audio": "audio/stim_816edfc2.wav"
     },
     {
-      "id": "stim_7d8f16d3",
-      "audio": "audio/stim_7d8f16d3.wav"
+      "id": "stim_af48a1ea",
+      "audio": "audio/stim_af48a1ea.wav"
     },
     {
-      "id": "stim_79d12944",
-      "audio": "audio/stim_79d12944.wav"
+      "id": "stim_5d8f6d3a",
+      "audio": "audio/stim_5d8f6d3a.wav"
     },
     {
-      "id": "stim_a069482e",
-      "audio": "audio/stim_a069482e.wav"
+      "id": "stim_e8cd4bc4",
+      "audio": "audio/stim_e8cd4bc4.wav"
     },
     {
-      "id": "stim_20b663b3",
-      "audio": "audio/stim_20b663b3.wav"
+      "id": "stim_b344c0c6",
+      "audio": "audio/stim_b344c0c6.wav"
     },
     {
-      "id": "stim_43dbca53",
-      "audio": "audio/stim_43dbca53.wav"
+      "id": "stim_0f13b637",
+      "audio": "audio/stim_0f13b637.wav"
     },
     {
-      "id": "stim_ab71aa3b",
-      "audio": "audio/stim_ab71aa3b.wav"
+      "id": "stim_710c6c7c",
+      "audio": "audio/stim_710c6c7c.wav"
     },
     {
-      "id": "stim_0ffc5b41",
-      "audio": "audio/stim_0ffc5b41.wav"
+      "id": "stim_1676fe47",
+      "audio": "audio/stim_1676fe47.wav"
     },
     {
-      "id": "stim_4c542bd5",
-      "audio": "audio/stim_4c542bd5.wav"
+      "id": "stim_e951659d",
+      "audio": "audio/stim_e951659d.wav"
     },
     {
-      "id": "stim_e5005fcd",
-      "audio": "audio/stim_e5005fcd.wav"
+      "id": "stim_970ba793",
+      "audio": "audio/stim_970ba793.wav"
     },
     {
-      "id": "stim_b87bffb4",
-      "audio": "audio/stim_b87bffb4.wav"
+      "id": "stim_d319bd33",
+      "audio": "audio/stim_d319bd33.wav"
     },
     {
-      "id": "stim_f5732f15",
-      "audio": "audio/stim_f5732f15.wav"
+      "id": "stim_a0e43294",
+      "audio": "audio/stim_a0e43294.wav"
     },
     {
-      "id": "stim_693058b5",
-      "audio": "audio/stim_693058b5.wav"
+      "id": "stim_631a7f77",
+      "audio": "audio/stim_631a7f77.wav"
     },
     {
-      "id": "stim_db9ff346",
-      "audio": "audio/stim_db9ff346.wav"
+      "id": "stim_4f5bf3eb",
+      "audio": "audio/stim_4f5bf3eb.wav"
     },
     {
-      "id": "stim_27164b7d",
-      "audio": "audio/stim_27164b7d.wav"
+      "id": "stim_aeaa0cc6",
+      "audio": "audio/stim_aeaa0cc6.wav"
     },
     {
-      "id": "stim_138d0b9c",
-      "audio": "audio/stim_138d0b9c.wav"
+      "id": "stim_60e2858c",
+      "audio": "audio/stim_60e2858c.wav"
     },
     {
-      "id": "stim_181b0c4a",
-      "audio": "audio/stim_181b0c4a.wav"
+      "id": "stim_d21e78a9",
+      "audio": "audio/stim_d21e78a9.wav"
     },
     {
-      "id": "stim_85d22fc4",
-      "audio": "audio/stim_85d22fc4.wav"
+      "id": "stim_6afd4894",
+      "audio": "audio/stim_6afd4894.wav"
     },
     {
-      "id": "stim_785d9f0e",
-      "audio": "audio/stim_785d9f0e.wav"
+      "id": "stim_43413eb2",
+      "audio": "audio/stim_43413eb2.wav"
     },
     {
-      "id": "stim_d4cba0b4",
-      "audio": "audio/stim_d4cba0b4.wav"
+      "id": "stim_5b6af6c1",
+      "audio": "audio/stim_5b6af6c1.wav"
     },
     {
-      "id": "stim_288ea3e5",
-      "audio": "audio/stim_288ea3e5.wav"
+      "id": "stim_d9673cf8",
+      "audio": "audio/stim_d9673cf8.wav"
     },
     {
-      "id": "stim_a2ba024e",
-      "audio": "audio/stim_a2ba024e.wav"
+      "id": "stim_53075ac1",
+      "audio": "audio/stim_53075ac1.wav"
     },
     {
-      "id": "stim_4c7b8e8c",
-      "audio": "audio/stim_4c7b8e8c.wav"
+      "id": "stim_0ec6713b",
+      "audio": "audio/stim_0ec6713b.wav"
     },
     {
-      "id": "stim_a86bd5f9",
-      "audio": "audio/stim_a86bd5f9.wav"
+      "id": "stim_1889b785",
+      "audio": "audio/stim_1889b785.wav"
     },
     {
-      "id": "stim_09843204",
-      "audio": "audio/stim_09843204.wav"
+      "id": "stim_137948b9",
+      "audio": "audio/stim_137948b9.wav"
     },
     {
-      "id": "stim_02b5a097",
-      "audio": "audio/stim_02b5a097.wav"
+      "id": "stim_0e38fdcd",
+      "audio": "audio/stim_0e38fdcd.wav"
     },
     {
-      "id": "stim_1318e36a",
-      "audio": "audio/stim_1318e36a.wav"
-    },
-    {
-      "id": "stim_8bab9068",
-      "audio": "audio/stim_8bab9068.wav"
-    },
-    {
-      "id": "stim_7f4e6c05",
-      "audio": "audio/stim_7f4e6c05.wav"
-    },
-    {
-      "id": "stim_3d95cd03",
-      "audio": "audio/stim_3d95cd03.wav"
-    },
-    {
-      "id": "stim_e3fc19ac",
-      "audio": "audio/stim_e3fc19ac.wav"
-    },
-    {
-      "id": "stim_7fae3693",
-      "audio": "audio/stim_7fae3693.wav"
-    },
-    {
-      "id": "stim_3fe47073",
-      "audio": "audio/stim_3fe47073.wav"
-    },
-    {
-      "id": "stim_d7d120f3",
-      "audio": "audio/stim_d7d120f3.wav"
-    },
-    {
-      "id": "stim_b2733518",
-      "audio": "audio/stim_b2733518.wav"
-    },
-    {
-      "id": "stim_c208f8b7",
-      "audio": "audio/stim_c208f8b7.wav"
-    },
-    {
-      "id": "stim_e645bd39",
-      "audio": "audio/stim_e645bd39.wav"
-    },
-    {
-      "id": "stim_739c9772",
-      "audio": "audio/stim_739c9772.wav"
-    },
-    {
-      "id": "stim_7bbdd067",
-      "audio": "audio/stim_7bbdd067.wav"
-    },
-    {
-      "id": "stim_26162499",
-      "audio": "audio/stim_26162499.wav"
-    },
-    {
-      "id": "stim_afa91353",
-      "audio": "audio/stim_afa91353.wav"
-    },
-    {
-      "id": "stim_45e3bdca",
-      "audio": "audio/stim_45e3bdca.wav"
-    },
-    {
-      "id": "stim_07aac585",
-      "audio": "audio/stim_07aac585.wav"
-    },
-    {
-      "id": "stim_86c917db",
-      "audio": "audio/stim_86c917db.wav"
-    },
-    {
-      "id": "stim_a457c2db",
-      "audio": "audio/stim_a457c2db.wav"
-    },
-    {
-      "id": "stim_6c451a23",
-      "audio": "audio/stim_6c451a23.wav"
-    },
-    {
-      "id": "stim_82a4de77",
-      "audio": "audio/stim_82a4de77.wav"
-    },
-    {
-      "id": "stim_fe52e468",
-      "audio": "audio/stim_fe52e468.wav"
-    },
-    {
-      "id": "stim_28730cb2",
-      "audio": "audio/stim_28730cb2.wav"
-    },
-    {
-      "id": "stim_9a5c69f2",
-      "audio": "audio/stim_9a5c69f2.wav"
-    },
-    {
-      "id": "stim_78c94377",
-      "audio": "audio/stim_78c94377.wav"
-    },
-    {
-      "id": "stim_88af4277",
-      "audio": "audio/stim_88af4277.wav"
-    },
-    {
-      "id": "stim_afff72f7",
-      "audio": "audio/stim_afff72f7.wav"
-    },
-    {
-      "id": "stim_289bf5e3",
-      "audio": "audio/stim_289bf5e3.wav"
-    },
-    {
-      "id": "stim_35649ee1",
-      "audio": "audio/stim_35649ee1.wav"
-    },
-    {
-      "id": "stim_bba29f0f",
-      "audio": "audio/stim_bba29f0f.wav"
-    },
-    {
-      "id": "stim_f31a7ecc",
-      "audio": "audio/stim_f31a7ecc.wav"
-    },
-    {
-      "id": "stim_3dc26a6c",
-      "audio": "audio/stim_3dc26a6c.wav"
-    },
-    {
-      "id": "stim_e9d80697",
-      "audio": "audio/stim_e9d80697.wav"
-    },
-    {
-      "id": "stim_99f64318",
-      "audio": "audio/stim_99f64318.wav"
-    },
-    {
-      "id": "stim_4bd87b0a",
-      "audio": "audio/stim_4bd87b0a.wav"
-    },
-    {
-      "id": "stim_51c84663",
-      "audio": "audio/stim_51c84663.wav"
-    },
-    {
-      "id": "stim_69611973",
-      "audio": "audio/stim_69611973.wav"
-    },
-    {
-      "id": "stim_811e9a40",
-      "audio": "audio/stim_811e9a40.wav"
-    },
-    {
-      "id": "stim_dbdbefe0",
-      "audio": "audio/stim_dbdbefe0.wav"
-    },
-    {
-      "id": "stim_0b5da33f",
-      "audio": "audio/stim_0b5da33f.wav"
-    },
-    {
-      "id": "stim_f1333f8b",
-      "audio": "audio/stim_f1333f8b.wav"
+      "id": "stim_c9b1e1c9",
+      "audio": "audio/stim_c9b1e1c9.wav"
     }
   ]
 }

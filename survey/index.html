@@ -138,6 +138,7 @@
     .progress-text {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 0.875rem;
       font-weight: 600;
       color: var(--text-muted);
@@ -260,7 +261,7 @@
     }
 
     .comment-section {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .comment-section label {
@@ -322,6 +323,18 @@
       color: #94a3b8;
       cursor: not-allowed;
       box-shadow: none;
+    }
+
+    .btn-secondary {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      box-shadow: none;
+      margin-top: 12px;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: #e2e8f0;
     }
 
     /* Dialog overlay for sessionStorage resume prompt */
@@ -464,8 +477,8 @@
     <div id="screen-landing" class="content">
       <div class="instruction-text">
         <p>Cảm ơn bạn đã đồng ý tham gia khảo sát chất lượng giọng nói tổng hợp cho dự án nghiên cứu <strong>VITS-VI</strong>.</p>
-        <p><strong>Nhiệm vụ của bạn:</strong> Bạn sẽ nghe các đoạn âm thanh tiếng Việt ngắn (khoảng 82 câu tất cả) và đánh giá mức độ tự nhiên của giọng đọc theo thang điểm từ 1 đến 5 (từ Rất tệ đến Rất tốt).</p>
-        <p><strong>Thời gian thực hiện:</strong> Khoảng 15-20 phút. Để có kết quả chính xác nhất, vui lòng sử dụng <strong>tai nghe (hoặc loa chất lượng tốt)</strong> và thực hiện trong <strong>không gian yên tĩnh</strong>.</p>
+        <p><strong>Nhiệm vụ của bạn:</strong> Bạn sẽ nghe các đoạn âm thanh tiếng Việt ngắn (khoảng 42 câu tất cả) và đánh giá mức độ tự nhiên của giọng đọc theo thang điểm từ 1 đến 5 (từ Rất tệ đến Rất tốt).</p>
+        <p><strong>Thời gian thực hiện:</strong> Khoảng 8-9 phút. Để có kết quả chính xác nhất, vui lòng sử dụng <strong>tai nghe (hoặc loa chất lượng tốt)</strong> và thực hiện trong <strong>không gian yên tĩnh</strong>.</p>
         <p>Thông tin của bạn sẽ được ẩn danh hoàn toàn và chỉ phục vụ cho mục đích nghiên cứu học thuật.</p>
       </div>
 
@@ -494,7 +507,10 @@
     <div id="screen-rating" class="content hidden">
       <div class="progress-container">
         <div class="progress-text">
-          <span id="progress-question-num">Câu 1 / --</span>
+          <span>
+            <span id="progress-question-num">Câu 1 / --</span>
+            <span id="progress-saved-num" style="margin-left: 8px; font-size: 0.8rem; color: var(--success); font-weight: 500;">(Đã lưu: 0 / --)</span>
+          </span>
           <span id="progress-percent">0%</span>
         </div>
         <div class="progress-bar-bg">
@@ -561,13 +577,17 @@
         Câu tiếp theo
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </button>
+
+      <button id="btn-pause" class="btn btn-secondary" onclick="surveyManager.pauseAndExit()">
+        Tạm dừng & thoát (Pause & Exit)
+      </button>
     </div>
 
     <!-- 3. Loading/Submitting Screen -->
     <div id="screen-submitting" class="content state-screen hidden">
       <div class="spinner"></div>
-      <div class="state-title">Đang gửi kết quả...</div>
-      <div class="state-desc">Vui lòng chờ trong giây lát, kết quả đang được ghi nhận vào hệ thống.</div>
+      <div class="state-title" id="submitting-title">Đang hoàn tất khảo sát...</div>
+      <div class="state-desc" id="submitting-desc">Vui lòng chờ trong giây lát để hệ thống lưu nốt các câu trả lời cuối cùng.</div>
     </div>
 
     <!-- 4. Success Screen -->
@@ -589,10 +609,17 @@
     <div id="screen-submit-error" class="content state-screen hidden">
       <div class="icon-error">✗</div>
       <div class="state-title">Lỗi gửi dữ liệu</div>
-      <div class="state-desc">Kết nối internet gặp sự cố hoặc hệ thống quá tải. Kết quả của bạn vẫn được lưu an toàn. Vui lòng thử gửi lại.</div>
-      <button class="btn" onclick="surveyManager.submitResults()">
+      <div class="state-desc" id="submit-error-desc">Kết nối internet gặp sự cố hoặc hệ thống quá tải. Kết quả của bạn vẫn được lưu an toàn trên máy. Vui lòng thử gửi lại.</div>
+      <button class="btn" onclick="surveyManager.retryFailedSubmissions()">
         Thử lại (Retry Submission)
       </button>
+    </div>
+
+    <!-- 7. Paused Screen -->
+    <div id="screen-paused" class="content state-screen hidden">
+      <div class="icon-success">✓</div>
+      <div class="state-title">Cảm ơn bạn!</div>
+      <div class="state-desc">Câu trả lời của bạn đã được lưu. Cảm ơn bạn đã tham gia đóng góp cho khảo sát! Bạn có thể đóng tab trình duyệt này.</div>
     </div>
   </div>
 
@@ -615,7 +642,9 @@
         this.manifest = null;
         this.stimuli = [];
         this.currentIndex = 0;
-        this.ratings = []; // elements: { stim_id, rating, played_count, time_to_rate_ms, comment }
+        this.ratings = []; // Completed local ratings
+        this.submissionQueue = []; // Queue of single ratings to send
+        this.ratingsSavedCount = 0; // Number of successfully written rows in Sheet
         
         // Listener metadata
         this.listenerId = "";
@@ -628,6 +657,10 @@
         this.hasPlayed = false;
         this.currentRating = null;
         this.questionStartTime = 0;
+
+        // Queue processing flag
+        this.isProcessingQueue = false;
+        this.waitingForFinalSubmission = false;
       }
 
       async init() {
@@ -663,11 +696,19 @@
           this.listenerId = this.tempSavedState.listenerId;
           this.startedAt = this.tempSavedState.startedAt;
           this.stimuli = this.tempSavedState.stimuli;
-          this.ratings = this.tempSavedState.ratings;
+          this.ratings = this.tempSavedState.ratings || [];
+          this.submissionQueue = this.tempSavedState.submissionQueue || [];
+          this.ratingsSavedCount = this.tempSavedState.ratingsSavedCount || 0;
           this.currentIndex = this.tempSavedState.currentIndex;
           this.tempSavedState = null;
+          
           this.showScreen('rating');
           this.loadQuestion();
+          
+          // Restart background queue processor if queue is not empty
+          if (this.submissionQueue.length > 0) {
+            this.processQueue();
+          }
         }
       }
 
@@ -686,6 +727,8 @@
         this.stimuli = shuffleArray([...this.manifest.stimuli]);
         this.currentIndex = 0;
         this.ratings = [];
+        this.submissionQueue = [];
+        this.ratingsSavedCount = 0;
 
         this.saveState();
         this.showScreen('rating');
@@ -693,7 +736,6 @@
       }
 
       generateUUID() {
-        // Simple fallback UUID generator
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
           var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
           return v.toString(16);
@@ -706,21 +748,22 @@
           startedAt: this.startedAt,
           stimuli: this.stimuli,
           ratings: this.ratings,
+          submissionQueue: this.submissionQueue,
+          ratingsSavedCount: this.ratingsSavedCount,
           currentIndex: this.currentIndex
         };
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
       }
 
       showScreen(screenId) {
-        // Hide all screens
         document.getElementById('screen-landing').classList.add('hidden');
         document.getElementById('screen-rating').classList.add('hidden');
         document.getElementById('screen-submitting').classList.add('hidden');
         document.getElementById('screen-success').classList.add('hidden');
         document.getElementById('screen-error').classList.add('hidden');
         document.getElementById('screen-submit-error').classList.add('hidden');
+        document.getElementById('screen-paused').classList.add('hidden');
 
-        // Show targets
         document.getElementById(`screen-${screenId}`).classList.remove('hidden');
       }
 
@@ -735,6 +778,8 @@
         // Update progress UI
         const total = this.stimuli.length;
         document.getElementById('progress-question-num').innerText = `Câu ${this.currentIndex + 1} / ${total}`;
+        this.updateSavedCountUI();
+        
         const pct = Math.round((this.currentIndex / total) * 100);
         document.getElementById('progress-percent').innerText = `${pct}%`;
         document.getElementById('progress-bar-fill').style.width = `${pct}%`;
@@ -797,9 +842,6 @@
 
       validateNextButton() {
         const audio = document.getElementById('survey-audio');
-        
-        // Confirm played state. Standard browsers support played.length.
-        // We also track hasPlayed boolean as robust fallback.
         const playedAtLeastOnce = (audio.played && audio.played.length > 0) || this.hasPlayed;
         const ratingSelected = this.currentRating !== null;
 
@@ -811,74 +853,145 @@
         document.getElementById('comment-char-count').innerText = `${text.length} / 200`;
       }
 
+      updateSavedCountUI() {
+        const total = this.stimuli.length;
+        document.getElementById('progress-saved-num').innerText = `(Đã lưu: ${this.ratingsSavedCount} / ${total})`;
+      }
+
       nextQuestion() {
-        // Save current rating
         const timeToRate = Date.now() - this.questionStartTime;
         const comment = document.getElementById('stim-comment').value.trim();
+        const isPartial = (this.currentIndex < this.stimuli.length - 1);
 
-        this.ratings.push({
+        const ratingPayload = {
+          listener_id: this.listenerId,
           stim_id: this.currentStimId,
           rating: this.currentRating,
           played_count: this.playCount,
           time_to_rate_ms: timeToRate,
-          comment: comment
-        });
+          comment: comment,
+          is_partial: isPartial,
+          user_agent: this.userAgent
+        };
 
+        // Add to local list and queue for posting
+        this.ratings.push(ratingPayload);
+        this.submissionQueue.push(ratingPayload);
+        
         this.currentIndex++;
         this.saveState();
+
+        // Trigger background POST
+        this.processQueue();
 
         if (this.currentIndex < this.stimuli.length) {
           this.loadQuestion();
         } else {
-          // Finished all questions!
-          this.submitResults();
+          // Finished all questions! Wait for queue to empty
+          this.showScreen('submitting');
+          this.waitingForFinalSubmission = true;
+          this.checkFinalQueueStatus();
         }
       }
 
-      async submitResults() {
-        this.showScreen('submitting');
-
-        const payload = {
-          listener_id: this.listenerId,
-          started_at: this.startedAt,
-          completed_at: new Date().toISOString(),
-          user_agent: this.userAgent,
-          ratings: this.ratings
-        };
-
-        try {
-          // Send request. Use no-cors if required by Apps Script redirection, 
-          // but Apps Script returns JSON. If we execute Apps Script as Web App,
-          // standard POST fetch will follow redirects if Apps Script returns ContentService.
-          const response = await fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'text/plain;charset=utf-8', // Apps Script does not always support OPTIONS preflight for JSON, text/plain avoids it
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const resText = await response.text();
-          let resData;
-          try {
-            resData = JSON.parse(resText);
-          } catch(e) {
-            resData = { status: "unknown", raw: resText };
-          }
-
-          if (response.ok && (resData.status === "ok" || response.status === 200)) {
-            // Success! Clear session storage
-            sessionStorage.removeItem(SESSION_KEY);
-            this.showScreen('success');
-          } else {
-            console.error("Submission failed:", resData);
-            this.showScreen('submit-error');
-          }
-        } catch (err) {
-          console.error("Fetch submission error:", err);
-          this.showScreen('submit-error');
+      pauseAndExit() {
+        // If they have set a rating for the current question, save it as a partial rating before exiting
+        const audio = document.getElementById('survey-audio');
+        const playedAtLeastOnce = (audio.played && audio.played.length > 0) || this.hasPlayed;
+        if (this.currentRating !== null && playedAtLeastOnce) {
+          const timeToRate = Date.now() - this.questionStartTime;
+          const comment = document.getElementById('stim-comment').value.trim();
+          const ratingPayload = {
+            listener_id: this.listenerId,
+            stim_id: this.currentStimId,
+            rating: this.currentRating,
+            played_count: this.playCount,
+            time_to_rate_ms: timeToRate,
+            comment: comment,
+            is_partial: true,
+            user_agent: this.userAgent
+          };
+          this.ratings.push(ratingPayload);
+          this.submissionQueue.push(ratingPayload);
         }
+
+        // Trigger queue flush in the background
+        this.processQueue();
+        
+        // Clear session storage to avoid resume popup next time
+        sessionStorage.removeItem(SESSION_KEY);
+        
+        // Redirect to paused screen immediately
+        this.showScreen('paused');
+      }
+
+      async processQueue() {
+        if (this.isProcessingQueue) return;
+        if (this.submissionQueue.length === 0) return;
+
+        this.isProcessingQueue = true;
+        
+        while (this.submissionQueue.length > 0) {
+          const payload = this.submissionQueue[0];
+          
+          try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+              },
+              body: JSON.stringify(payload)
+            });
+
+            const resText = await response.text();
+            let resData;
+            try {
+              resData = JSON.parse(resText);
+            } catch(e) {
+              resData = { status: "unknown", raw: resText };
+            }
+
+            if (response.ok && (resData.status === "ok" || response.status === 200)) {
+              // Successfully sent! Remove from queue
+              this.submissionQueue.shift();
+              this.ratingsSavedCount++;
+              this.saveState();
+              this.updateSavedCountUI();
+            } else {
+              console.error("Incremental POST failed, retrying later:", resData);
+              break; // Stop loop, retry on next click or retry button click
+            }
+          } catch (err) {
+            console.error("Incremental POST network error, retrying later:", err);
+            break; // Network issue, break and retry later
+          }
+        }
+        
+        this.isProcessingQueue = false;
+
+        // If waiting on final submission, re-check state
+        if (this.waitingForFinalSubmission) {
+          this.checkFinalQueueStatus();
+        }
+      }
+
+      checkFinalQueueStatus() {
+        if (this.submissionQueue.length === 0) {
+          sessionStorage.removeItem(SESSION_KEY);
+          this.showScreen('success');
+        } else if (!this.isProcessingQueue) {
+          // If queue processing has stopped but queue is not empty, it means posting failed
+          this.showScreen('submit-error');
+          document.getElementById('submit-error-desc').innerText = `Kết nối internet gặp sự cố. Còn ${this.submissionQueue.length} câu trả lời chưa được gửi. Vui lòng bấm nút Thử lại bên dưới.`;
+        }
+      }
+
+      retryFailedSubmissions() {
+        this.showScreen('submitting');
+        document.getElementById('submitting-title').innerText = "Đang gửi lại kết quả...";
+        document.getElementById('submitting-desc').innerText = `Đang thử gửi lại ${this.submissionQueue.length} câu trả lời còn thiếu.`;
+        this.processQueue();
       }
     }
 
